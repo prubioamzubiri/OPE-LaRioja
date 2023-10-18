@@ -102,7 +102,7 @@ public class Main{
             if((aleatorio == 1)&&(esp < numeroEspeciales))
             {
                 contrasena[index] = especiales[rnd.nextInt(10)];
-                car++;
+                esp++;
                 index++;  
             }
             if((aleatorio==2&&(num < numNumeros)))
