@@ -33,19 +33,13 @@ public class Main{
                     break;
 
                 case 3:
-                    generarContraseña(listaChars, listaCharEspecial, listaInt, 6,3,4);
+                    generarContraseñaDificil(listaChars, listaCharEspecial, listaInt, 6,3,4);
                     break;
                 default:
                     break;
 
             }
         }
-        
-
-        
-        
-
-        
 
     }
 
@@ -99,13 +93,13 @@ public class Main{
                 car++;
                 index++;                
             }
-            if((aleatorio == 1)&&(esp < numeroEspeciales))
+            if((aleatorio == 1) && (esp < numeroEspeciales))
             {
                 contrasena[index] = especiales[rnd.nextInt(10)];
                 esp++;
                 index++;  
             }
-            if((aleatorio==2&&(num < numNumeros)))
+            if((aleatorio == 2) && (num < numNumeros))
             {
                 contrasena[index] = numeros[rnd.nextInt(10)];
                 num++;
@@ -114,6 +108,93 @@ public class Main{
         }
 
         imprimirCadena(contrasena);
+    }
+
+        public static void generarContraseñaDificil(char[] caracteres, char[] especiales, char[] numeros, int numCaracteres, int numeroEspeciales, int numNumeros)
+    {
+        int num = 0, car = 0, esp = 1;
+        int end = numCaracteres + numNumeros + numeroEspeciales;
+        char valorAIntroducir;
+
+        char[] contrasena = new char[end];
+
+        Random rnd = new Random();
+        
+        int index = 1;
+
+        contrasena[0] = especiales[rnd.nextInt(10)];
+
+        while(index < end)
+        {
+            int aleatorio = rnd.nextInt(3);
+            if((aleatorio==0)&&(car<numCaracteres))
+            {
+                
+
+                if(car == 0)
+                {
+                    contrasena[index] = caracteres[rnd.nextInt(26)+26];
+                }
+                else
+                {
+                    valorAIntroducir = caracteres[rnd.nextInt(26)];
+
+                    while(contains(contrasena,valorAIntroducir))
+                    {
+                        valorAIntroducir = caracteres[rnd.nextInt(26)];
+                    }
+
+                    contrasena[index] = valorAIntroducir;
+                }
+
+                car++;
+                index++; 
+               
+            }
+            if((aleatorio == 1)&&(esp < numeroEspeciales))
+            {
+
+                valorAIntroducir = especiales[rnd.nextInt(10)];
+
+                while(contains(contrasena, valorAIntroducir))
+                {
+                    valorAIntroducir = especiales[rnd.nextInt(10)];
+                }
+                contrasena[index] = valorAIntroducir;
+                esp++;
+                index++;  
+            }
+            if((aleatorio==2) &&(num < numNumeros))
+            {
+                valorAIntroducir = numeros[rnd.nextInt(10)];
+
+                while(contains(contrasena, valorAIntroducir))
+                {
+                    valorAIntroducir = numeros[rnd.nextInt(10)];
+                }
+                
+                contrasena[index] = valorAIntroducir;
+                num++;
+                index++;
+            }
+        }
+
+        imprimirCadena(contrasena);
+    }
+
+    public static boolean contains(char[] lista, char valor)
+    {
+        boolean to_return = false;
+        int index = 0;
+        while((!to_return)&&(index<lista.length))
+        {
+            if(lista[index]==valor)
+            {
+                to_return = true;
+            }
+            index++;
+        }
+        return to_return;
     }
 
     public static int menu(){
